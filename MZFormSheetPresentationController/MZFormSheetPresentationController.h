@@ -53,6 +53,8 @@ typedef NS_ENUM(NSInteger, MZFormSheetActionWhenKeyboardAppears) {
 @interface MZFormSheetPresentationController : UIPresentationController <MZAppearance>
 @property (nonatomic, strong, readonly, null_resettable) UIView *dimmingView;
 
+    @property (nonatomic, assign) CGFloat blurBackgroundViewAlpha;
+    
 /**
  *  The preferred size for the container’s content. (required)
  */

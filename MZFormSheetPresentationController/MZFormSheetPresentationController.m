@@ -167,6 +167,8 @@ CGFloat const MZFormSheetPresentationControllerDefaultAboveKeyboardMargin = 20;
         
         [[[self class] appearance] applyInvocationTo:self];
         
+        _blurBackgroundViewAlpha = 1;
+        
 #if !TARGET_OS_TV
         [self addKeyboardNotifications];
 #endif
@@ -198,6 +200,7 @@ CGFloat const MZFormSheetPresentationControllerDefaultAboveKeyboardMargin = 20;
         self.blurBackgroundView.frame = self.dimmingView.bounds;
         self.blurBackgroundView.translatesAutoresizingMaskIntoConstraints = YES;
         self.blurBackgroundView.userInteractionEnabled = NO;
+        self.blurBackgroundView.alpha = _blurBackgroundViewAlpha;
         
         self.dimmingView.backgroundColor = [UIColor clearColor];
         [self.dimmingView addSubview:self.blurBackgroundView];
