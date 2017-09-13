@@ -14,40 +14,27 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        _duration = 0.3;
+        _duration = 0.25;
     }
     return self;
 }
 
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
-
-    UIView *sourceView = [transitionContext viewForKey:UITransitionContextFromViewKey];
     UIView *targetView = [transitionContext viewForKey:UITransitionContextToViewKey];
     
     UIViewController *targetViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-
+    
     UIView *containerView = [transitionContext containerView];
     
-    [containerView addSubview:sourceView];
     [containerView addSubview:targetView];
-    targetView.alpha = 0.0;
     targetView.frame = [transitionContext finalFrameForViewController:targetViewController];
-    
-    [UIView animateWithDuration:[self transitionDuration:transitionContext]
-                          delay:0
-                        options:UIViewAnimationOptionBeginFromCurrentState
-                     animations:^{
-                         targetView.alpha = 1.0;
-                         
-                     } completion:^(BOOL finished) {
-                         [sourceView removeFromSuperview];
-                         [transitionContext completeTransition:YES];
-                     }];
     
     MZFormSheetPresentationController *presentationController = (id)targetViewController.mz_formSheetPresentingPresentationController.presentationController;
     [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
         [presentationController layoutPresentingViewController];
-    } completion:nil];
+    } completion:^(BOOL finished) {
+        [transitionContext completeTransition:YES];
+    }];
 }
 
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
